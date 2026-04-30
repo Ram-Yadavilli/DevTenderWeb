@@ -5,11 +5,13 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../utils/userSlice";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = Cookies.get("token");
 
   const logout = async () => {
     try {
@@ -24,11 +26,13 @@ const Navbar = () => {
     }
   };
 
-  console.log(user);
+  console.log("ram100", user);
   return (
     <div className="navbar bg-primary-content primary-content  shadow-sm">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl"> devTender</a>
+        <NavLink to="/home" className="btn btn-ghost text-xl">
+          devTender
+        </NavLink>
       </div>
       <div className="flex gap-2">
         {user?.firstName && (
@@ -57,7 +61,10 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-                <a>Settings</a>
+                <NavLink to="/connections">Connections</NavLink>
+              </li>
+              <li>
+                <NavLink to="/connectionRequest">Connection Request</NavLink>
               </li>
               <li>
                 <a onClick={logout}>Logout</a>

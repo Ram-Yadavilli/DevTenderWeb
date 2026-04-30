@@ -7,11 +7,16 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const UserData = useSelector((state) => state.user);
+  const UserData = useSelector((state) => state.user.user);
+
+  const token = Cookies.get("token");
+
+  console.log("token", token);
 
   const userProfile = async () => {
     try {
@@ -38,7 +43,6 @@ const Body = () => {
       <Navbar />
 
       <Outlet />
-      <Footer />
     </div>
   );
 };
